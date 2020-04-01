@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md bg-mi">
+  <div class="container">
+      <%= link_to image_tag("logo.svg", class: 'mt-1 img-fluid logo-img'), root_path, class: 'logo' %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <%= link_to 'Home', root_path, class: 'nav-link' %>
+      </li>
+      <% if user_signed_in? %>
+        <li class="nav-item active">
+          <%= link_to 'Articles', articles_path, class:"nav-link" %>
+        </li>
+      <% end %>
+      <li class="nav-item active">
+        <%= link_to 'Contact', contact_path, class: 'nav-link' %>
+      </li>
+      <!-- <li class="nav-item">
+        <a href="#" class="nav-link">Posts</a>
+        <%# link_to 'Posts', articles_path, class: 'nav-link' %>
+      </li> -->
+      <li class="nav-item">
+        <p class="nav-link">|</p>
+      </li>
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <p class="nav-link user">  <%= current_user.name %> </p>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <%= link_to('Log out', destroy_user_session_path, class: 'btn btn-primary btn-sm', method: :delete) %>
+        </li>
+      <% else %>
+        <li class="nav-item d-flex align-items-center">
+          <%= link_to 'Log in', user_session_path, class: 'btn btn-outline-primary btn-sm' %>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-sm' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  </div>
+</nav>
+

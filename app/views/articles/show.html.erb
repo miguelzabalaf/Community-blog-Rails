@@ -1,0 +1,26 @@
+<div class="show-article">
+  <img class="show-article-img" src="https://source.unsplash.com/600x300/?nature,water" alt="">
+  <div class="show-article-header">
+    <div class="show-article-header-title">
+      <h1 class="article-header"><%= @article.title %></h1>
+    </div>
+    <div class="show-article-header-author">
+      <p class="author">Por <%= @article.user.name %></p>
+    </div>
+    <div class="show-article-header-options">
+      <%= link_to 'Back', articles_path, class:"btn btn-light btn-sm" %>
+      <% if user_signed_in? and @article.user.email == current_user.email %>
+          <%= link_to 'Edit'.html_safe, edit_article_path(@article), class:"btn btn-warning btn-sm" %>
+          <%= link_to @article, class:"btn btn-danger btn-sm", method: :delete, data: { confirm: '¿Estás seguro de que quieres eliminar este artículo?' } do %>
+            <span>Delete</span>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+           
+<div class="show-content">
+  <p><%= (raw @article.body) %></p>
+</div>
+
+

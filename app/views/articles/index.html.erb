@@ -1,0 +1,70 @@
+<div class="content">
+  <div class="content-articles">
+    <div class="content-articles-user">
+      <h3>Welcome, <%= current_user.name %></h3>
+      <%= link_to "New article", new_article_path, class:"btn btn-light btn-sm" %>
+    </div>
+    <% if @count == 0 %>
+      <%= image_tag("hero-img.svg", class: "content-articles-img") %>
+      <h2 class="content-articles-none">Sorry, there are no articles.</h2>
+      <div class="content-articles-button">
+        <%= link_to "New article", new_article_path, class:"btn btn-primary" %>
+      </div>
+    <% end %>
+    <% @articles.shuffle.each do |article| %>
+    <div class="article">
+      <div class="article-title">
+        <!-- <a href="<%#= article_path(article)  %>"><h4><%#= article.title %> <i class="fa fa-newspaper"></i></h4></a> --> 
+        <h4><%= link_to article.title.upcase, article %></h4>
+      </div>
+      <div class="article-info">
+        <div class="article-info-user">
+          <i class="fa fa-user"> </i> <span><%= article.user.name %></span>
+        </div>
+        <div class="article-info-date">
+          <i class="fas fa-calendar"></i> <span><%=article.created_at.to_date.to_formatted_s(:long)%></span>
+        </div>
+      </div>
+      <div class="article-body">
+        <% @firstWords = article.body.split(" ").first(35).join(" ") %> <!--Obtener las primeras 30 palabras-->
+        <p><%= @firstWords %> ...</p>
+      </div>
+    </div>
+    <%end%>
+  </div>
+
+  <div class="content-user">
+    <div class="user">
+      <h5>Welcome, <%= current_user.name %></h5>
+      <!-- <p>Hemos encontrado <%= @count %> artículos para tí.</p> -->
+      <div class="user-buttons">
+        <div class="user-buttons-view">
+          <%= link_to "My articles", articles_path, class:"btn btn-secondary btn-sm disabled" %>
+        </div>
+        <div class="user-buttons-new">
+          <%= link_to "New article", new_article_path, class:"btn btn-primary btn-sm" %>
+        </div>
+      </div>
+    </div>
+    <div class="users">
+      <h5>Recent Users</h5>
+      <% @users.take(3).each do |user| %>
+        <div class="user-active">
+          <p><%= user.name %> <%= user.lastname %> <small><%= user.age %> años</small></p> 
+        </div>
+      <%end%>
+    </div>
+    <div class="recent-articles">
+      <h5>Recent Articles</h5>
+      <% if @count == 0 %>
+      <%#= image_tag("hero-img.svg", class: "recent-articles-img") %>
+      <h2 class="recent-articles-none">Create a article!</h2>
+    <% end %>
+      <% @articles.take(3).each do |article| %>
+        <div class="recent-article">
+          <%= link_to article.title, article_path(article) %>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

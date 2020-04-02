@@ -4,14 +4,19 @@
       <h3>Welcome, <%= current_user.name %></h3>
       <%= link_to "New article", new_article_path, class:"btn btn-primary btn-sm" %>
     </div>
-
+    <!-- SEARCH ARTICLE -->
     <div class="search-body">
       <%= simple_form_for :search, url: articles_path, method: "GET", html: { class: 'form-control-lg d-flex' } do |f| %>
       <%= f.input :title, input_html: {value: ""}, label: false, placeholder: "Search an article here here..", class:"search" %>
       <%= f.submit 'search',  class: "btn btn-primary btn-sm" %>
       <% end %>
     </div>
-
+    <% if @articles.blank? %>
+      <%= image_tag("hero-img.svg", class: "content-articles-img") %>
+      <h2 class="content-articles-none">Sorry, we didn't find an article related to <span class="primary"><%= @title %></span></h2>
+    <% end %>
+    <!-- SEARCH ARTICLE -->
+    <!-- ARTICLES.COUNT == 0 -->
     <% if @count == 0 %>
       <%= image_tag("hero-img.svg", class: "content-articles-img") %>
       <h2 class="content-articles-none">Sorry, there are no articles.</h2>
@@ -19,10 +24,10 @@
         <%= link_to "New article", new_article_path, class:"btn btn-primary" %>
       </div>
     <% end %>
+    <!-- ARTICLES.COUNT == 0 -->
     <% @articles.shuffle.each do |article| %>
     <div class="article">
       <div class="article-title">
-        <!-- <a href="<%#= article_path(article)  %>"><h4><%#= article.title %> <i class="fa fa-newspaper"></i></h4></a> --> 
         <h4><%= link_to article.title.upcase, article %> <i class="fa fa-link"></i></h4>
       </div>
       <div class="article-info">
@@ -40,7 +45,6 @@
     </div>
     <%end%>
   </div>
-
   <div class="content-user">
     <div class="user">
       <h5>Welcome, <%= current_user.name %></h5>
@@ -65,7 +69,6 @@
     <div class="recent-articles">
       <h5>Recent Articles</h5>
       <% if @count == 0 %>
-      <%#= image_tag("hero-img.svg", class: "recent-articles-img") %>
       <h2 class="recent-articles-none">Create a article!</h2>
     <% end %>
       <% @articles.take(3).each do |article| %>

@@ -27,7 +27,9 @@ $Clight: rgb(245, 245, 245);
 @import "/components/hero";
 @import "/components/articles";
 
-
+* {
+  transition: all 0.5s;
+}
 
 body {
   font-family: 'Lato', sans-serif;
@@ -104,6 +106,47 @@ h2 {
 .devise {
   .logo-img {
     width: 75px;
+  }
+}
+
+#search_title {
+  background-color: $Csecondary;
+  padding: 1px 3px;
+  margin-right: 5px;
+  height: 31px;
+  width: 300px;
+  color: $Clight;
+  font-size: 14px;
+}
+.search-body {
+  display: none;
+}
+
+
+.form-control {
+  border: 1px solid $Cprimary!important;
+}
+
+@media screen and (max-width: 580px) {
+  .search-nav {
+    display: none;
+  }
+  .search-body {
+    display: block;
+    padding: 0;
+    text-align: center;
+  }
+  #search_title {
+    background-color: white;
+    margin-right: 5px;
+    height: 31px;
+    width: 200px;
+    color: $Csecondary;
+    font-size: 14px;
+  }
+  .form-control-lg {
+    display: flex;
+    justify-content: space-between;
   }
 }
 

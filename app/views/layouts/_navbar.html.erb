@@ -1,8 +1,24 @@
-<nav class="navbar navbar-expand-md bg-mi">
+<nav class="navbar navbar-expand-lg bg-mi">
   <div class="container">
-      <%= link_to image_tag("logo.svg", class: 'mt-1 img-fluid logo-img'), root_path, class: 'logo' %>
+    <%= link_to image_tag("logo.svg", class: 'mt-1 img-fluid logo-img'), root_path, class: 'logo mr-3' %>
+      
+    <% if user_signed_in? %>
+      <div class="search-nav">
+        <%= simple_form_for :search, url: articles_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+        <%= f.input :title, input_html: {value: ""}, label: false, placeholder: "Search an article here here..", class:"search" %>
+        <%= f.submit 'search',  class: "btn btn-primary btn-sm" %>
+        <% end %>
+      </div>
+    <%end%>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon d-inline">
+      <% if user_signed_in? %>
+        <%= link_to('Log out', destroy_user_session_path, class: 'btn btn-outline-primary btn-sm', method: :delete) %>
+      <% else %>
+        <%= link_to 'Log in', user_session_path, class: 'btn btn-outline-primary btn-sm' %>
+        <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    </span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -16,7 +32,7 @@
         </li>
       <% end %>
       <li class="nav-item active">
-        <%= link_to 'Contact', contact_path, class: 'nav-link' %>
+        <a href="mailto:zabalafmiguel@hotmail.com" class="nav-link">Contact</a>
       </li>
       <!-- <li class="nav-item">
         <a href="#" class="nav-link">Posts</a>
@@ -27,10 +43,10 @@
       </li>
       <% if user_signed_in? %>
         <li class="nav-item">
-          <p class="nav-link user">  <%= current_user.name %> </p>
+          <%= link_to current_user.name, user_path(current_user), class:"nav-link user" %>
         </li>
         <li class="nav-item d-flex align-items-center">
-          <%= link_to('Log out', destroy_user_session_path, class: 'btn btn-primary btn-sm', method: :delete) %>
+          <%= link_to('Log out', destroy_user_session_path, class: 'btn btn-outline-primary btn-sm', method: :delete) %>
         </li>
       <% else %>
         <li class="nav-item d-flex align-items-center">

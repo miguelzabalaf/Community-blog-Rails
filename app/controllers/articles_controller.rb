@@ -1,11 +1,22 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [ :edit, :update, :destroy]
+
+
   def index
     @users = User.all
     @count = Article.count
     @articles = Article.all
     #Pedir los campos específicos: @articles = Article.select("id, title, body")
+    
+    #SEARCH
+    @search = params["search"]
+
+    if @search.present?
+      @title = @search["title"]
+      @articles = Article.where("title ILIKE ?", "%#{@title}%")
+    end
+
   end
 
   def show

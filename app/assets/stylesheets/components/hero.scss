@@ -36,13 +36,20 @@
       & p {
         font-size: 16px;
         color: #666;
+        font-weight: 600;
+      }
+      & span {
+        position: relative;
+        top: -15px;
+        font-size: 14px;
+        color: #666;
       }
     }
   }
   &-bottom {
     position: relative;
     text-align: center;
-    top: 30px;
+    top: 15px;
     font-size: 20px;
     &-link {
       padding: 15px 40px;

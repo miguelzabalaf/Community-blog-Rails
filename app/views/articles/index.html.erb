@@ -2,8 +2,16 @@
   <div class="content-articles">
     <div class="content-articles-user">
       <h3>Welcome, <%= current_user.name %></h3>
-      <%= link_to "New article", new_article_path, class:"btn btn-light btn-sm" %>
+      <%= link_to "New article", new_article_path, class:"btn btn-primary btn-sm" %>
     </div>
+
+    <div class="search-body">
+      <%= simple_form_for :search, url: articles_path, method: "GET", html: { class: 'form-control-lg d-flex' } do |f| %>
+      <%= f.input :title, input_html: {value: ""}, label: false, placeholder: "Search an article here here..", class:"search" %>
+      <%= f.submit 'search',  class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+
     <% if @count == 0 %>
       <%= image_tag("hero-img.svg", class: "content-articles-img") %>
       <h2 class="content-articles-none">Sorry, there are no articles.</h2>
@@ -15,14 +23,14 @@
     <div class="article">
       <div class="article-title">
         <!-- <a href="<%#= article_path(article)  %>"><h4><%#= article.title %> <i class="fa fa-newspaper"></i></h4></a> --> 
-        <h4><%= link_to article.title.upcase, article %></h4>
+        <h4><%= link_to article.title.upcase, article %> <i class="fa fa-link"></i></h4>
       </div>
       <div class="article-info">
         <div class="article-info-user">
-          <i class="fa fa-user"> </i> <span><%= article.user.name %></span>
+          <small><i class="fa fa-user"></i></small> <span><small><%= article.user.name %> <%#= article.user.lastname %></small></span>
         </div>
         <div class="article-info-date">
-          <i class="fas fa-calendar"></i> <span><%=article.created_at.to_date.to_formatted_s(:long)%></span>
+          <small><i class="fas fa-calendar"></i></small> <span><small><%=article.created_at.to_date.to_formatted_s(:long)%></small></span>
         </div>
       </div>
       <div class="article-body">
@@ -39,10 +47,10 @@
       <!-- <p>Hemos encontrado <%= @count %> artículos para tí.</p> -->
       <div class="user-buttons">
         <div class="user-buttons-view">
-          <%= link_to "My articles", articles_path, class:"btn btn-primary btn-sm disabled" %>
+          <%= link_to "My Profile", user_path(current_user), class:"btn btn-primary btn-sm" %>
         </div>
         <div class="user-buttons-new">
-          <%= link_to "New article", new_article_path, class:"btn btn-primary btn-sm" %>
+          <%= link_to "New Article", new_article_path, class:"btn btn-primary btn-sm" %>
         </div>
       </div>
     </div>

@@ -4,17 +4,17 @@ class ArticlesController < ApplicationController
 
 
   def index
-    @users = User.all
-    @count = Article.count
-    @articles = Article.all
+    @recentUsers = User.all.take(3)
+    @countArticles = Article.count #Cuéntame cuántos artículos hay
+    @recentArticles = Article.all.take(3) #Instancia en la variable @recentArticles los 3 artículos más recientes y luego los recorres e imprimes
+    @articles = Article.all.page params[:page]
     #Pedir los campos específicos: @articles = Article.select("id, title, body")
     
     #SEARCH
     @search = params["search"]
-
     if @search.present?
       @title = @search["title"]
-      @articles = Article.where("title ILIKE ?", "%#{@title}%")
+      @articles = Article.where("title ILIKE ?", "%#{@title}%").page params[:page]
     end
 
   end
@@ -35,10 +35,8 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: "Tu articulo ha sido creado" }
-        format.json { render :show, status: :crated, location: @article}
       else
         format.html { render :new }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
   end

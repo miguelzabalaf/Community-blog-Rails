@@ -6,6 +6,8 @@ class Article < ApplicationRecord
   #Url amigables
   extend FriendlyId
   friendly_id :title, use: :slugged
+  #Paginación
+  paginates_per 8
   #Validaciones
   validates :title, presence: true,
                     uniqueness: true,

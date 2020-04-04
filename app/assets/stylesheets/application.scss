@@ -14,7 +14,8 @@
 
 
 
-@import "bootstrap";
+
+
 
 $Cprimary: #007BFF;
 $Cprimary-hover: rgb(0, 105, 218);
@@ -26,6 +27,9 @@ $Clight: rgb(245, 245, 245);
 @import "/components/navbar";
 @import "/components/hero";
 @import "/components/articles";
+@import "bootstrap";
+@import "toastr";
+
 
 * {
   transition: all 0.5s;

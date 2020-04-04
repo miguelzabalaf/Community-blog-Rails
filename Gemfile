@@ -68,3 +68,6 @@ gem 'friendly_id', '~> 5.2.4'
 #Kaminari, pagination
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+
+#Notificaciones Toast
+gem 'toastr-rails', '~> 1.0', '>= 1.0.3'

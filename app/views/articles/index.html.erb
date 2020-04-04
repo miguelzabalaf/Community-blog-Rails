@@ -64,7 +64,8 @@
       <h5>Recent Users</h5>
       <% @recentUsers.each do |user| %>
         <div class="user-active">
-          <p><%= user.name %> <%= user.lastname %> <small><%= user.age %> años</small></p> 
+          <p><%= link_to user.name, user_path(user) %> <small><%= user.age %> años</small> </p> 
+          
         </div>
       <%end%>
     </div>

@@ -1,7 +1,20 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1 class="mt-3">Profile</h1>
+<div class="my-acount">
+  <div class="my-acount-container">
+    <%= image_tag("user.png", class: "my-acount-container-img") %>
+  </div>
+  <div class="my-acount-info">
+    <h2><%= @user.name %> <%= @user.lastname %></h2>
+  </div>
+</div>
 
-
+<div class="links">
+  <%= link_to "Back", articles_path, class:"btn btn-danger btn-sm" %>
+  <% if @user.id == current_user.id %>
+    <%= link_to "Edit Profile", edit_user_path(current_user), class:"btn btn-primary btn-sm" %>
+  <% end %>
+</div>
+<h3>Articles</h3>
 <% @articles.each do |article| %>
   <% if article.user_id == @user.id %>
     <div class="my-article">
@@ -10,5 +23,3 @@
   <% end %>
 <% end %>
 
-<%= link_to "Back", articles_path, class:"btn btn-danger btn-sm" %>
-<%= link_to "Edit Profile", edit_user_path(current_user), class:"btn btn-primary btn-sm" %>
